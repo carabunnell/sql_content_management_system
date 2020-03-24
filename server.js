@@ -26,7 +26,8 @@ connection.connect(function (err) {
 //call the function that uses inquierer
 //function choices: 
 function toDo() {
-    inquirer.prompt({
+    inquirer
+    .prompt({
         type: "list",
         name: "action",
         message: "What would you like to do?",
@@ -35,25 +36,32 @@ function toDo() {
         switch (answers.action) {
             case "View All Employees":
                 viewEmployees();
+                break
             case "View All Roles":
                 viewRoles();
+                break
             case "View All Departments":
                 viewDepartments();
+                break
             case "Add Employee":
                 addEmployee();
+                break
             case "Add Role":
                 addRole();
+                break
             case "Add Department":
                 addDepartment();
-        };
+                break
+        }
         // so the answers are going to to the object?? of answers, now with that, if it equals a view all employees, show the select view from. 
     });
-};
+}
 // simple functions for viewing current all
 function viewEmployees() {
     connection.query("SELECT * FROM employees", function (err, res) {
         if (err) throw err;
         console.log(res);
+        toDo();
     });
 }
 
@@ -61,14 +69,16 @@ function viewRoles() {
     connection.query("SELECT * FROM roles", function (err, res) {
         if (err) throw err;
         console.log(res);
-    });
+        toDo();
+    })
 }
 
 function viewDepartments() {
     connection.query("SELECT * FROM departments", function (err, res) {
         if (err) throw err;
         console.log(res);
-    });
+        toDo();
+    })
 }
 
 //functions for adding roles employees or departments
